@@ -233,7 +233,6 @@ class MouseUtils:
 	window.cursorX = {int(initial_pos[0])};
 	window.cursorY = {int(initial_pos[1])};
 	document.addEventListener('mousemove', function(event) {{
-		console.log('Mouse moved to: ' + event.clientX + ', ' + event.clientY);
 		window.cursorX = event.clientX;
 		window.cursorY = event.clientY;
 	}});
