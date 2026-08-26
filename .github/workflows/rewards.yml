@@ -34,4 +34,4 @@ jobs:
         MS_USER: ${{ secrets.MS_USER }}
         MS_PASS: ${{ secrets.MS_PASS }}
       run: |
-        poetry run python main.py
+        poetry run python src/main.py
