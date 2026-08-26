@@ -8,15 +8,11 @@ from selenium import webdriver
 
 options = webdriver.EdgeOptions()
 
-# Bật chế độ Headless mới và các cờ bắt buộc để chạy ổn định trên Linux/GitHub Actions
 options.add_argument("--headless=new") 
 options.add_argument("--no-sandbox")
 options.add_argument("--disable-dev-shm-usage")
 options.add_argument("--disable-gpu")
-options.add_argument("--remote-debugging-port=9222") # Khắc phục lỗi chrome not reachable
-
-# Tạm thời tắt user-data-dir nếu dùng cookies để tránh xung đột quyền khóa tệp trên Linux
-# options.add_argument("--user-data-dir=/home/runner/.cache/ms-rewards-profile")
+options.add_argument("--remote-debugging-port=9222")
 
 options.add_experimental_option("excludeSwitches", ["enable-automation"])
 options.add_experimental_option('useAutomationExtension', False)
@@ -24,10 +20,7 @@ options.add_argument("--disable-blink-features=AutomationControlled")
 
 driver = webdriver.Edge(options=options)
 
-mouse = mouse_trajectory.MouseUtils(driver)
-keyboard = mimic_typing.KeyboardUtils(driver)
-
-# --- NẠP COOKIE TỪ GITHUB SECRETS ---
+# --- NẠP COOKIE TRƯỚC KHI KHỞI TẠO MOUSE/KEYBOARD UTILS ---
 print("[INFO] Đang tiến hành nạp session cookies...")
 driver.get("https://www.bing.com/")
 
@@ -46,12 +39,17 @@ if ms_cookies_raw:
                 pass
         print("[INFO] Nạp cookies thành công! Đang làm mới trang...")
         driver.refresh()
+        print("[INFO] Đang chờ trang web load hoàn tất...")
         time.sleep(15)
     except Exception as e:
         print(f"[WARNING] Lỗi khi xử lý chuỗi cookies: {e}")
 else:
     print("[WARNING] Không tìm thấy biến môi trường MS_COOKIES!")
-# ------------------------------------
+# -----------------------------------------------------------
+
+# Bây giờ mới khởi tạo mouse và keyboard sau khi đã vào được trang web ổn định
+mouse = mouse_trajectory.MouseUtils(driver)
+keyboard = mimic_typing.KeyboardUtils(driver)
 
 rewards = rewards_tasks.RewardsTaskUtils(driver)
 
