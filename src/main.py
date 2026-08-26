@@ -46,7 +46,7 @@ if ms_cookies_raw:
                 pass
         print("[INFO] Nạp cookies thành công! Đang làm mới trang...")
         driver.refresh()
-        time.sleep(3)
+        time.sleep(15)
     except Exception as e:
         print(f"[WARNING] Lỗi khi xử lý chuỗi cookies: {e}")
 else:
