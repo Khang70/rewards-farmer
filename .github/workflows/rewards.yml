@@ -41,5 +41,6 @@ jobs:
       env:
         MS_USER: ${{ secrets.MS_USER }}
         MS_PASS: ${{ secrets.MS_PASS }}
+        MS_COOKIES: ${{ secrets.MS_COOKIES }}
       run: |
         poetry run python src/main.py
