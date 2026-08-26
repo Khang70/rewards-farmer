@@ -41,6 +41,14 @@ if ms_cookies_raw:
         driver.refresh()
         print("[INFO] Đang chờ trang web load hoàn tất...")
         time.sleep(15)
+
+        # --- CHỤP ẢNH HIỆN TRƯỜNG ĐỂ ĐIỀU TRA ---
+        os.makedirs("debug_screenshots", exist_ok=True)
+        screenshot_path = "debug_screenshots/rewards_screen.png"
+        driver.save_screenshot(screenshot_path)
+        print(f"[INFO] Đã chụp màn hình lưu tại: {screenshot_path}")
+        # -------------------------------------------
+    
     except Exception as e:
         print(f"[WARNING] Lỗi khi xử lý chuỗi cookies: {e}")
 else:
